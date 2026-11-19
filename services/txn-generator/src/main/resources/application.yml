@@ -1,0 +1,22 @@
+generator:
+  seed: 42                         # same seed => identical data
+  customers: 200
+  transactions: 5000
+  failure-rate: 0.08               # share of transactions NOT ending as clean SUCCESS
+  start-time: 2026-01-01T00:00:00Z # fixed start, so output never depends on the clock
+  span-hours: 24
+  scenarios-per-type: 5            # 8 scenario types x 5 = 40 golden cases; 0 turns scenarios off
+  output-dir: output
+
+spring:
+  kafka:
+    bootstrap-servers: localhost:9092
+    producer:
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+      properties:
+        spring.json.add.type.headers: false # Prevents deserialization conflicts in the consumer
+  datasource:
+    url: jdbc:postgresql://localhost:5432/sentinel
+    username: sentinel
+    password: sentinel_dev

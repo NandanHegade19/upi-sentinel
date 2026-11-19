@@ -1,0 +1,11 @@
+fastapi
+uvicorn
+psycopg[binary]
+pgvector
+sentence-transformers
+groq
+pydantic
+python-dotenv
+langfuse
+pypdf
+langchain-text-splitters

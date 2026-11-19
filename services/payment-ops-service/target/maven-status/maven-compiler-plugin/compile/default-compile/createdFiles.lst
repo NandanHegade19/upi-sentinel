@@ -1,0 +1,5 @@
+com/upisentinel/backend/kafka/TxnEventRepository.class
+com/upisentinel/backend/kafka/TransactionRepository.class
+com/upisentinel/backend/kafka/TxnEventPayload.class
+com/upisentinel/backend/kafka/TxnEventConsumer.class
+com/upisentinel/backend/PaymentOpsApplication.class

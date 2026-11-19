@@ -1,0 +1,32 @@
+version: '3.8'
+
+services:
+  db:
+    image: pgvector/pgvector:pg16
+    environment:
+      POSTGRES_USER: sentinel
+      POSTGRES_PASSWORD: sentinel_dev
+      POSTGRES_DB: sentinel
+    ports:
+      - "5433:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+
+  api:
+    build: .
+    ports:
+      - "8000:8000"
+    env_file:
+      - .env
+    environment:
+      # Tell FastAPI to route to the 'db' container on the Docker network
+      - DB_CONN=postgresql://sentinel:sentinel_dev@db:5432/sentinel
+    depends_on:
+      - db
+    volumes:
+      - ./src:/app/src
+      - ./knowledge:/app/knowledge
+    command: uvicorn src.main:app --host 0.0.0.0 --port 8000 --reload
+
+volumes:
+  pgdata:

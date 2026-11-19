@@ -1,0 +1,303 @@
+:root {
+  --bg-dark: #0f172a;
+  --panel-bg: #1e293b;
+  --text-main: #f8fafc;
+  --text-muted: #94a3b8;
+  --accent-blue: #3b82f6;
+  --accent-red: #ef4444;
+  --border-color: #334155;
+}
+
+body {
+  margin: 0;
+  background-color: var(--bg-dark);
+  color: var(--text-main);
+  font-family: system-ui, -apple-system, sans-serif;
+}
+
+.resize-divider {
+  width: 12px;
+  cursor: col-resize;
+  background-color: transparent;
+  transition: background-color 0.2s ease;
+  margin: 0 4px;
+  border-radius: 4px;
+}
+
+.resize-divider:hover,
+.resize-divider[data-resize-handle-state="drag"] {
+  background-color: var(--accent-blue);
+}
+
+.panel {
+  background-color: var(--panel-bg);
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.panel-header {
+  font-size: 1.1rem;
+  font-weight: 600;
+  border-bottom: 1px solid var(--border-color);
+  padding-bottom: 12px;
+  margin-bottom: 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* React Flow Dark Theme Overrides */
+.react-flow__controls-button {
+  background-color: var(--panel-bg) !important;
+  fill: var(--text-main) !important;
+  border: 1px solid var(--border-color) !important;
+  border-bottom: none !important;
+}
+
+.react-flow__controls-button:last-child {
+  border-bottom: 1px solid var(--border-color) !important;
+}
+
+.react-flow__controls-button:hover {
+  background-color: var(--border-color) !important;
+}
+
+/* Live Queue Table Styles */
+.queue-container {
+  overflow-y: auto;
+  height: 100%;
+}
+
+.queue-table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+  font-size: 0.9rem;
+}
+
+.queue-table th {
+  color: var(--text-muted);
+  font-weight: 500;
+  padding: 8px;
+  border-bottom: 1px solid var(--border-color);
+  position: sticky;
+  top: 0;
+  background-color: var(--panel-bg);
+}
+
+.queue-table td {
+  padding: 12px 8px;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.queue-table tbody tr {
+  transition: background-color 0.15s ease;
+}
+
+.queue-table tbody tr:hover {
+  background-color: rgba(255, 255, 255, 0.03);
+}
+
+.active-row {
+  background-color: rgba(59, 130, 246, 0.1) !important;
+  border-left: 3px solid var(--accent-blue);
+}
+
+.investigate-btn {
+  background-color: var(--accent-blue);
+  color: white;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.8rem;
+  font-weight: 500;
+  transition: background-color 0.2s ease;
+}
+
+.investigate-btn:hover {
+  background-color: #2563eb;
+}
+
+/* Copilot Chat Styles */
+.copilot-container {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.chat-history {
+  flex: 1;
+  overflow-y: auto;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.message-wrapper {
+  display: flex;
+  gap: 12px;
+  max-width: 90%;
+}
+
+.message-wrapper.user {
+  align-self: flex-end;
+  flex-direction: row-reverse;
+}
+
+.message-avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--border-color);
+  flex-shrink: 0;
+}
+
+.message-wrapper.user .message-avatar {
+  background-color: var(--accent-blue);
+  color: white;
+}
+
+.message-wrapper.system .message-avatar {
+  background-color: rgba(239, 68, 68, 0.2);
+  color: var(--accent-red);
+}
+
+.message-content {
+  background-color: #2a3b52;
+  padding: 12px 16px;
+  border-radius: 8px;
+  font-size: 0.95rem;
+  line-height: 1.5;
+  white-space: pre-wrap; /* Preserves LLM line breaks */
+}
+
+.message-wrapper.user .message-content {
+  background-color: var(--accent-blue);
+  color: white;
+}
+
+.message-wrapper.system .message-content {
+  background-color: rgba(239, 68, 68, 0.1);
+  color: var(--accent-red);
+  border: 1px solid rgba(239, 68, 68, 0.3);
+}
+
+.citations {
+  margin-top: 8px;
+  padding-top: 8px;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  font-size: 0.8rem;
+  color: var(--text-muted);
+}
+
+.chat-input-form {
+  display: flex;
+  gap: 8px;
+  padding: 16px;
+  border-top: 1px solid var(--border-color);
+  background-color: var(--panel-bg);
+}
+
+.chat-input {
+  flex: 1;
+  background-color: var(--bg-dark);
+  border: 1px solid var(--border-color);
+  color: var(--text-main);
+  padding: 10px 14px;
+  border-radius: 6px;
+  outline: none;
+  font-size: 0.95rem;
+}
+
+.chat-input:focus {
+  border-color: var(--accent-blue);
+}
+
+.send-btn {
+  background-color: var(--accent-blue);
+  color: white;
+  border: none;
+  width: 42px;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: opacity 0.2s;
+}
+
+.send-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.spin {
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+/* Markdown Render Styles */
+.markdown-body {
+  font-size: 0.95rem;
+  line-height: 1.6;
+}
+
+.markdown-body p {
+  margin-top: 0;
+  margin-bottom: 12px;
+}
+
+.markdown-body p:last-child {
+  margin-bottom: 0;
+}
+
+.markdown-body strong {
+  font-weight: 600;
+  color: #ffffff;
+}
+
+.markdown-body ul, .markdown-body ol {
+  margin-top: 0;
+  margin-bottom: 12px;
+  padding-left: 20px;
+}
+
+/* Beautiful Markdown Tables */
+.markdown-body table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 12px;
+  font-size: 0.85rem;
+}
+
+.markdown-body th {
+  background-color: rgba(0, 0, 0, 0.2);
+  text-align: left;
+  padding: 8px 12px;
+  border: 1px solid var(--border-color);
+  color: var(--text-muted);
+}
+
+.markdown-body td {
+  padding: 8px 12px;
+  border: 1px solid var(--border-color);
+}
+
+.message-wrapper.user .markdown-body table,
+.message-wrapper.user .markdown-body th,
+.message-wrapper.user .markdown-body td {
+  border-color: rgba(255, 255, 255, 0.2);
+}
