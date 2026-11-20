@@ -1,14 +1,17 @@
 import { useState } from 'react';
 import { Panel, Group, Separator } from 'react-resizable-panels';
-import { LayoutDashboard, ShieldCheck, UserCircle } from 'lucide-react';
+import { LayoutDashboard, ShieldCheck, UserCircle, BarChart3 } from 'lucide-react';
 import { useDispatch, useSelector, Provider } from 'react-redux';
 import NetworkGraph from './components/NetworkGraph';
 import LiveQueue from './components/LiveQueue';
 import Copilot from './components/Copilot';
 import UnifiedOpsView from './components/UnifiedOpsView';
+import { AdminBIDashboard } from './components/AdminBIDashboard';
 import { store, type RootState, setUserRole } from './store/opsSlice';
 
-type ViewState = 'DASHBOARD' | 'OPS_CONSOLE';
+type ViewState = 'DASHBOARD' | 'OPS_CONSOLE' | 'ADMIN_BI';
+
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://127.0.0.1:8000';
 
 function MainLayout() {
   const [activeView, setActiveView] = useState<ViewState>('DASHBOARD');
@@ -57,6 +60,19 @@ function MainLayout() {
           >
             <ShieldCheck size={18} /> Ops & Approvals
           </button>
+
+          <button 
+            onClick={() => setActiveView('ADMIN_BI')}
+            style={{ 
+              display: 'flex', alignItems: 'center', gap: '10px', padding: '12px 16px', 
+              borderRadius: '8px', border: 'none', cursor: 'pointer', textAlign: 'left',
+              backgroundColor: activeView === 'ADMIN_BI' ? 'var(--bg-hover)' : 'transparent',
+              color: activeView === 'ADMIN_BI' ? '#3b82f6' : '#e2e8f0',
+              fontWeight: activeView === 'ADMIN_BI' ? 'bold' : 'normal'
+            }}
+          >
+            <BarChart3 size={18} /> Admin & BI
+          </button>
         </div>
 
         {/* GLOBAL ROLE SELECTOR */}
@@ -96,7 +112,6 @@ function MainLayout() {
 
             {/* Panel 2: Agentic Copilot */}
             <Panel defaultSize={45} minSize={30} className="panel">
-              {/* Note: You can remove the role selector from Copilot.tsx now if you want, since it's in the sidebar! */}
               <div className="panel-header">Agent Workspace</div>
               <div className="panel-content" style={{ flex: 1, position: 'relative', minHeight: 0, padding: 0 }}>
                 <Copilot />
@@ -114,10 +129,15 @@ function MainLayout() {
             </Panel>
 
           </Group>
-        ) : (
+        ) : activeView === 'OPS_CONSOLE' ? (
           /* FULL SCREEN OPS VIEW */
           <div style={{ height: '100%', padding: '0 20px' }}>
             <UnifiedOpsView />
+          </div>
+        ) : (
+          /* ADMIN & BI ANALYTICS VIEW */
+          <div style={{ height: '100%', overflowY: 'auto' }}>
+            <AdminBIDashboard apiBaseUrl={API_BASE_URL} userRole={userRole} />
           </div>
         )}
       </div>
