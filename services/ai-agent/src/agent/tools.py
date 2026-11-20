@@ -52,7 +52,7 @@ def propose_action(txn_id: str, action_type: str, reason: str) -> dict:
                 payload = json.dumps({"txn_id": txn_id, "reason": reason})
                 print(f"Propose resp ===== {run_id} , {payload}, {action_type}")
                 cur.execute("""
-                    INSERT INTO approval_request (run_id, action_type, payload, current_status)
+                    INSERT INTO approval_request (run_id, action_type, payload, status)
                     VALUES (%s, %s, %s, 'PENDING')
                     RETURNING request_id;
                 """, (run_id, action_type, payload))
