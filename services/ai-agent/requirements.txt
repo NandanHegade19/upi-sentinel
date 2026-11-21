@@ -9,3 +9,4 @@ python-dotenv
 langfuse
 pypdf
 langchain-text-splitters
+psycopg2-binary
